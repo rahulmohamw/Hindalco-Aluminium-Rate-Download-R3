@@ -4,6 +4,7 @@ on:
   workflow_dispatch:  # Manual trigger
   schedule:
       - cron: '0 11 * * *'  # Run at 4:30 PM IST daily
+
 permissions:
   contents: write
 
@@ -22,68 +23,21 @@ jobs:
           
       - name: Install Dependencies
         run: |
-          pip install PyPDF2 requests
+          pip install PyPDF2
           
-      - name: Download Latest PDF and Extract CSV
+      - name: Check for Existing PDFs
         run: |
-          python3 - <<'EOF'
-          import os
-          import requests
-          from datetime import datetime, timedelta
-          import sys
+          echo "🔍 Checking for existing PDFs in Downloads folder..."
           
-          # Try to download today's PDF first
-          today = datetime.now()
+          # List all available PDFs
+          find Downloads -name "*.pdf" -type f | head -10
           
-          # Try different date formats and recent dates
-          for days_back in range(3):
-              check_date = today - timedelta(days=days_back)
-              
-              # Create directory structure
-              base_path = f"Downloads/{check_date.strftime('%Y')}/{check_date.strftime('%b')}"
-              os.makedirs(base_path, exist_ok=True)
-              
-              # Try different URL patterns
-              patterns = [
-                  f"primary-ready-reckoner-{check_date.strftime('%d-%B-%Y').lower()}.pdf",
-                  f"primary-ready-reckoner-{check_date.strftime('%d-%b-%Y').lower()}.pdf",
-                  f"Hindalco_Circular_{check_date.strftime('%d_%b_%y')}.pdf"
-              ]
-              
-              for pattern in patterns:
-                  url = f"https://www.hindalco.com/Upload/PDF/{pattern}"
-                  filepath = os.path.join(base_path, pattern)
-                  
-                  try:
-                      print(f"🔍 Trying to download: {url}")
-                      
-                      headers = {
-                          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-                      }
-                      
-                      response = requests.get(url, headers=headers, timeout=30)
-                      response.raise_for_status()
-                      
-                      # Check if it's actually a PDF
-                      if len(response.content) > 10000:  # PDF should be substantial
-                          with open(filepath, 'wb') as f:
-                              f.write(response.content)
-                          
-                          print(f"✅ Downloaded: {filepath} ({len(response.content)} bytes)")
-                          
-                          # Found a PDF, exit the loops
-                          sys.exit(0)
-                          
-                  except requests.exceptions.RequestException as e:
-                      print(f"❌ Failed: {url} - {e}")
-                      continue
-              
-              if days_back == 0:
-                  print(f"⚠️ No PDF found for today ({check_date.strftime('%Y-%m-%d')}), trying previous days...")
-          
-          print("❌ Could not download any recent PDF")
-          sys.exit(1)
-          EOF
+          # Check if we have recent PDFs
+          if find Downloads -name "*.pdf" -type f -mtime -7 | head -1 > /dev/null; then
+            echo "✅ Found recent PDF files in Downloads folder"
+          else
+            echo "⚠️ No recent PDF files found, but continuing with available PDFs"
+          fi
           
       - name: Extract CSV from PDF
         run: |
@@ -94,20 +48,15 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Check if there are any changes
-          if git diff --quiet && git diff --staged --quiet; then
+          # Check if there are any changes in CSV files
+          if git diff --quiet csv/ && git diff --staged --quiet csv/; then
             echo "📝 No changes detected in CSV files"
             exit 0
           fi
           
-          # Add CSV files
+          # Add only CSV files (not PDFs since they're already committed)
           if ls csv/*.csv 1> /dev/null 2>&1; then
             git add csv/
-            
-            # Also add any downloaded PDFs
-            if ls Downloads/**/*.pdf 1> /dev/null 2>&1; then
-              git add Downloads/
-            fi
             
             # Commit with informative message
             current_date=$(date '+%Y-%m-%d')
