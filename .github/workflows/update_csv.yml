@@ -3,8 +3,7 @@ name: Daily Hindalco CSV Update
 on:
   workflow_dispatch:  # Manual trigger
   schedule:
-    - cron: '30 6 * * *'  # Run at 12:00 PM IST (6:30 AM UTC) daily
-
+      - cron: '0 11 * * *'  # Run at 4:30 PM IST daily
 permissions:
   contents: write
 
