@@ -117,13 +117,14 @@ def clean_description(desc):
     return desc
 
 def extract_table_data(pdf_path):
-    """Extract data from PDF with improved parsing"""
+    """Extract data from PDF with improved parsing and duplicate prevention"""
     try:
         reader = PdfReader(pdf_path)
         text = "\n".join([page.extract_text() for page in reader.pages])
         lines = text.splitlines()
         
         data_rows = []
+        seen_items = set()  # Track processed items to avoid duplicates
         
         # Try to extract date from text first, then from filename
         current_date = extract_date_from_text(text)
@@ -132,62 +133,91 @@ def extract_table_data(pdf_path):
         
         print(f"   📅 Extracted date: {current_date}")
         
-        # Parse lines for numbered items
+        # Find the main table section by looking for "PRODUCTS" header
+        table_started = False
+        processed_numbers = set()  # Track item numbers already processed
+        
         for i, line in enumerate(lines):
             line = line.strip()
             
-            # Look for numbered items (1., 2., 3., etc.)
-            if line and len(line) > 2 and line[0].isdigit() and '.' in line[:3]:
-                parts = line.split()
+            # Start processing after finding the products table
+            if "PRODUCTS" in line.upper() and "Basic Price" in line:
+                table_started = True
+                continue
+            
+            # Stop processing if we hit notes or other sections
+            if table_started and any(stop_word in line.upper() for stop_word in ["NOTE", "QUANTITY DISCOUNT", "FREIGHT CHARGES", "TAXES"]):
+                break
+            
+            # Only process numbered items in the table section
+            if table_started and line and len(line) > 2:
+                # Look for numbered items (1., 2., 3., etc.) at start of line
+                import re
+                number_match = re.match(r'^(\d+)\.\s+(.+)', line)
                 
-                if len(parts) >= 3:  # Minimum: number, description, price
-                    try:
-                        # Try to find the price (last numeric value)
-                        price_found = False
-                        for j in range(len(parts) - 1, -1, -1):
-                            try:
-                                # Clean the potential price string
-                                price_str = parts[j].replace(",", "").replace("Rs/", "").replace("MT", "").strip()
-                                price = int(price_str)
-                                
-                                # Price should be reasonable (> 1000 for these items)
-                                if price > 1000:
-                                    # Everything between item number and price is description
-                                    desc_parts = parts[1:j]
-                                    desc = " ".join(desc_parts)
-                                    desc = clean_description(desc)
-                                    
-                                    # Skip if description is too short or contains only numbers
-                                    if len(desc) > 3 and not desc.isdigit():
-                                        data_rows.append((current_date, desc, price))
-                                        price_found = True
-                                        print(f"   ✅ Found: {desc} → ₹{price:,}")
-                                        break
-                            except (ValueError, IndexError):
-                                continue
-                        
-                        # If we couldn't find a price in the current line, check next line
-                        if not price_found and i + 1 < len(lines):
-                            next_line = lines[i + 1].strip()
-                            next_parts = next_line.split()
-                            
-                            if next_parts:
+                if number_match:
+                    item_number = number_match.group(1)
+                    rest_of_line = number_match.group(2)
+                    
+                    # Skip if we already processed this item number
+                    if item_number in processed_numbers:
+                        continue
+                    
+                    processed_numbers.add(item_number)
+                    parts = rest_of_line.split()
+                    
+                    if len(parts) >= 2:  # At least description and price
+                        try:
+                            # Find the price (should be the last numeric value on the line)
+                            price_found = False
+                            for j in range(len(parts) - 1, -1, -1):
                                 try:
-                                    price_str = next_parts[0].replace(",", "").replace("Rs/", "").replace("MT", "").strip()
-                                    price = int(price_str)
-                                    if price > 1000:
-                                        desc = " ".join(parts[1:])
-                                        desc = clean_description(desc)
+                                    price_str = parts[j].replace(",", "").replace("Rs/", "").replace("MT", "").strip()
+                                    # Remove any trailing text like "Nil", "Rs/", etc.
+                                    price_str = re.sub(r'[^\d]', '', price_str)
+                                    
+                                    if price_str:  # Only if we have digits
+                                        price = int(price_str)
                                         
-                                        if len(desc) > 3 and not desc.isdigit():
-                                            data_rows.append((current_date, desc, price))
-                                            print(f"   ✅ Found (next line): {desc} → ₹{price:,}")
+                                        # Price should be reasonable
+                                        if price > 100000:  # Aluminum prices are typically > 100k
+                                            # Everything before the price is description
+                                            desc_parts = parts[:j]
+                                            desc = " ".join(desc_parts)
+                                            desc = clean_description(desc)
+                                            
+                                            # Create unique key to avoid duplicates
+                                            unique_key = f"{current_date}|{desc.lower()}"
+                                            
+                                            if len(desc) > 5 and unique_key not in seen_items:
+                                                seen_items.add(unique_key)
+                                                data_rows.append((current_date, desc, price))
+                                                price_found = True
+                                                print(f"   ✅ Item {item_number}: {desc} → ₹{price:,}")
+                                                break
                                 except (ValueError, IndexError):
                                     continue
+                            
+                            # If price not found on same line, check next line
+                            if not price_found and i + 1 < len(lines):
+                                next_line = lines[i + 1].strip()
+                                # Look for standalone price on next line
+                                price_match = re.match(r'^(\d{6,})', next_line.replace(",", ""))
+                                if price_match:
+                                    price = int(price_match.group(1))
+                                    desc = " ".join(parts)
+                                    desc = clean_description(desc)
                                     
-                    except Exception as e:
-                        continue
+                                    unique_key = f"{current_date}|{desc.lower()}"
+                                    if len(desc) > 5 and unique_key not in seen_items:
+                                        seen_items.add(unique_key)
+                                        data_rows.append((current_date, desc, price))
+                                        print(f"   ✅ Item {item_number} (next line): {desc} → ₹{price:,}")
+                                        
+                        except Exception as e:
+                            continue
         
+        print(f"   📊 Extracted {len(data_rows)} unique items")
         return data_rows
         
     except Exception as e:
@@ -195,22 +225,30 @@ def extract_table_data(pdf_path):
         return []
 
 def create_csv_file(product_name, data_points):
-    """Create or update CSV file for a product"""
+    """Create or update CSV file for a product with duplicate removal"""
     filename = sanitize_filename(product_name) + ".csv"
     csv_path = os.path.join(CSV_DIR, filename)
     os.makedirs(CSV_DIR, exist_ok=True)
     
-    # Sort data points by date
-    data_points.sort(key=lambda x: x[0])
+    # Remove duplicates based on date and price
+    unique_data = {}
+    for date, desc, price in data_points:
+        key = f"{date}|{price}"
+        if key not in unique_data:
+            unique_data[key] = (date, desc, price)
+    
+    # Convert back to list and sort by date
+    final_data = list(unique_data.values())
+    final_data.sort(key=lambda x: x[0])
     
     # Write CSV with headers
     with open(csv_path, "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["Date", "Product", "Price"])
-        for date, desc, price in data_points:
+        for date, desc, price in final_data:
             writer.writerow([date, desc, price])
     
-    print(f"   💾 Created: {filename} with {len(data_points)} data points")
+    print(f"   💾 Created: {filename} with {len(final_data)} unique data points")
 
 def process_all_pdfs():
     """Process all PDF files and create consolidated CSV files"""
