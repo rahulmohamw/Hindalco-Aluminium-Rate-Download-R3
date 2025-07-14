@@ -1,4 +1,4 @@
-name: Test Extract July 2nd
+name: Test Extract July 11th
 on:
   workflow_dispatch:
 permissions:
@@ -20,7 +20,7 @@ jobs:
         run: |
           pip install PyPDF2 requests
           
-      - name: Download and Extract July 2nd 2025 PDF
+      - name: Download and Extract July 11th 2025 PDF
         run: |
           python3 - <<'EOF'
           import os
@@ -32,8 +32,8 @@ jobs:
           base_path = "Downloads/2025/Jul"
           os.makedirs(base_path, exist_ok=True)
           
-          # Date for July 2nd, 2025
-          date_obj = datetime.strptime("2025-07-02", "%Y-%m-%d")
+          # Date for July 11th, 2025
+          date_obj = datetime.strptime("2025-07-11", "%Y-%m-%d")
           
           # Construct URL and filename
           day = date_obj.strftime("%d")
