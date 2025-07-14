@@ -1,0 +1,240 @@
+name: One-Time Bulk CSV Creation
+
+on:
+  workflow_dispatch:  # Manual trigger only
+
+permissions:
+  contents: write
+
+jobs:
+  bulk_extract_csv:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Install Dependencies
+        run: |
+          pip install PyPDF2
+          
+      - name: Run Bulk PDF to CSV Extraction
+        run: |
+          python3 - <<'EOF'
+          import os
+          import csv
+          from datetime import datetime
+          from PyPDF2 import PdfReader
+          import glob
+          
+          CSV_DIR = "csv"
+          
+          def sanitize_filename(text):
+              """Clean filename for CSV creation"""
+              return text.replace("/", "-").replace("\"", "").replace(",", "").replace(":", "").replace(" ", "_").replace("%", "percent")
+          
+          def extract_date_from_filename(filename):
+              """Extract date from filename patterns"""
+              import re
+              
+              # Pattern: primary-ready-reckoner-11-july-2025.pdf
+              match = re.search(r'(\d{1,2})-(\w+)-(\d{4})', filename.lower())
+              if match:
+                  day, month_name, year = match.groups()
+                  month_mapping = {
+                      'january': 1, 'jan': 1, 'february': 2, 'feb': 2, 'march': 3, 'mar': 3,
+                      'april': 4, 'apr': 4, 'may': 5, 'june': 6, 'jun': 6, 'july': 7, 'jul': 7,
+                      'august': 8, 'aug': 8, 'september': 9, 'sep': 9, 'october': 10, 'oct': 10,
+                      'november': 11, 'nov': 11, 'december': 12, 'dec': 12
+                  }
+                  
+                  month_num = month_mapping.get(month_name.lower())
+                  if month_num:
+                      try:
+                          date_obj = datetime(int(year), month_num, int(day))
+                          return date_obj.strftime("%Y-%m-%d")
+                      except:
+                          pass
+              
+              # Pattern: Hindalco_Circular_11_Jul_25.pdf
+              match = re.search(r'(\d{1,2})_(\w+)_(\d{2})', filename)
+              if match:
+                  day, month_name, year = match.groups()
+                  year_full = 2000 + int(year) if int(year) < 50 else 1900 + int(year)
+                  
+                  month_mapping = {
+                      'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'may': 5, 'jun': 6,
+                      'jul': 7, 'aug': 8, 'sep': 9, 'oct': 10, 'nov': 11, 'dec': 12
+                  }
+                  
+                  month_num = month_mapping.get(month_name.lower())
+                  if month_num:
+                      try:
+                          date_obj = datetime(year_full, month_num, int(day))
+                          return date_obj.strftime("%Y-%m-%d")
+                      except:
+                          pass
+              
+              return datetime.now().strftime("%Y-%m-%d")
+          
+          def extract_date_from_text(text):
+              """Extract date from PDF text"""
+              import re
+              match = re.search(r'w\.e\.f\.\s*(\d{1,2}\.\d{1,2}\.\d{4})', text)
+              if match:
+                  try:
+                      date_obj = datetime.strptime(match.group(1), "%d.%m.%Y")
+                      return date_obj.strftime("%Y-%m-%d")
+                  except:
+                      pass
+              return None
+          
+          def clean_description(desc):
+              """Clean the description by removing unwanted patterns but preserving specifications"""
+              import re
+              desc = re.sub(r'\b\d{5,6}\b', '', desc)
+              desc = re.sub(r'\b\d{4,}\b(?=\s|$)', '', desc)
+              desc = ' '.join(desc.split())
+              desc = desc.strip(' .-_')
+              return desc
+          
+          def extract_table_data(pdf_path):
+              """Extract data from PDF"""
+              try:
+                  reader = PdfReader(pdf_path)
+                  text = "\n".join([page.extract_text() for page in reader.pages])
+                  lines = text.splitlines()
+                  
+                  data_rows = []
+                  current_date = extract_date_from_text(text)
+                  if not current_date:
+                      current_date = extract_date_from_filename(os.path.basename(pdf_path))
+                  
+                  print(f"   📅 Date: {current_date}")
+                  
+                  for i, line in enumerate(lines):
+                      line = line.strip()
+                      
+                      if line and len(line) > 2 and line[0].isdigit() and '.' in line[:3]:
+                          parts = line.split()
+                          
+                          if len(parts) >= 3:
+                              try:
+                                  price_found = False
+                                  for j in range(len(parts) - 1, -1, -1):
+                                      try:
+                                          price_str = parts[j].replace(",", "").replace("Rs/", "").replace("MT", "").strip()
+                                          price = int(price_str)
+                                          
+                                          if price > 1000:
+                                              desc_parts = parts[1:j]
+                                              desc = " ".join(desc_parts)
+                                              desc = clean_description(desc)
+                                              
+                                              if len(desc) > 3 and not desc.isdigit():
+                                                  data_rows.append((current_date, desc, price))
+                                                  price_found = True
+                                                  print(f"   ✅ {desc} → ₹{price:,}")
+                                                  break
+                                      except (ValueError, IndexError):
+                                          continue
+                                  
+                                  if not price_found and i + 1 < len(lines):
+                                      next_line = lines[i + 1].strip()
+                                      next_parts = next_line.split()
+                                      
+                                      if next_parts:
+                                          try:
+                                              price_str = next_parts[0].replace(",", "").replace("Rs/", "").replace("MT", "").strip()
+                                              price = int(price_str)
+                                              if price > 1000:
+                                                  desc = " ".join(parts[1:])
+                                                  desc = clean_description(desc)
+                                                  
+                                                  if len(desc) > 3 and not desc.isdigit():
+                                                      data_rows.append((current_date, desc, price))
+                                                      print(f"   ✅ {desc} → ₹{price:,}")
+                                          except (ValueError, IndexError):
+                                              continue
+                                              
+                              except Exception:
+                                  continue
+                  
+                  return data_rows
+                  
+              except Exception as e:
+                  print(f"   ❌ Error: {e}")
+                  return []
+          
+          def create_csv_file(product_name, data_points):
+              """Create CSV file for a product"""
+              filename = sanitize_filename(product_name) + ".csv"
+              csv_path = os.path.join(CSV_DIR, filename)
+              os.makedirs(CSV_DIR, exist_ok=True)
+              
+              data_points.sort(key=lambda x: x[0])
+              
+              with open(csv_path, "w", newline="") as f:
+                  writer = csv.writer(f)
+                  writer.writerow(["Date", "Product", "Price"])
+                  for date, desc, price in data_points:
+                      writer.writerow([date, desc, price])
+              
+              print(f"   💾 Created: {filename} ({len(data_points)} records)")
+          
+          # Main execution
+          print("🚀 Starting bulk extraction...")
+          
+          # Find all PDFs
+          pdf_patterns = ["Downloads/**/*.pdf", "Downloads/**/**/*.pdf"]
+          all_pdfs = []
+          for pattern in pdf_patterns:
+              all_pdfs.extend(glob.glob(pattern, recursive=True))
+          
+          hindalco_pdfs = []
+          for pdf in all_pdfs:
+              filename = os.path.basename(pdf).lower()
+              if any(keyword in filename for keyword in ['hindalco', 'primary-ready-reckoner', 'circular']):
+                  hindalco_pdfs.append(pdf)
+          
+          print(f"🔍 Found {len(hindalco_pdfs)} PDF files")
+          
+          # Process PDFs
+          product_data = {}
+          for pdf_path in hindalco_pdfs:
+              print(f"\n🔄 Processing: {pdf_path}")
+              extracted_rows = extract_table_data(pdf_path)
+              
+              for date, desc, price in extracted_rows:
+                  if desc not in product_data:
+                      product_data[desc] = []
+                  product_data[desc].append((date, desc, price))
+          
+          # Create CSVs
+          print(f"\n📊 Creating {len(product_data)} CSV files...")
+          for product_name, data_points in product_data.items():
+              create_csv_file(product_name, data_points)
+          
+          print(f"\n✅ Completed! Created {len(product_data)} CSV files")
+          EOF
+          
+      - name: Commit CSV Files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          if ls csv/*.csv 1> /dev/null 2>&1; then
+            git add csv/
+            git commit -m "Initial bulk CSV creation from all historical PDFs [$(date '+%Y-%m-%d %H:%M:%S')]"
+            git push
+            echo "✅ CSV files committed successfully"
+          else
+            echo "❌ No CSV files found to commit"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
