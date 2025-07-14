@@ -20,16 +20,18 @@ def clean_description(desc):
     """Clean the description by removing common unwanted patterns"""
     import re
     
-    # Remove rate patterns like "249500", "252000", etc. (5-6 digit numbers)
+    # Remove rate patterns like "249500", "252000", etc. (5-6 digit numbers only)
+    # But preserve important product specifications like "9.5", "61%", etc.
     desc = re.sub(r'\b\d{5,6}\b', '', desc)
     
-    # Remove standalone numbers that might be rates
-    desc = re.sub(r'\b\d+\b(?=\s|$)', '', desc)
+    # Remove standalone large numbers that are clearly rates/prices (4+ digits)
+    # But keep smaller numbers that are part of specifications
+    desc = re.sub(r'\b\d{4,}\b(?=\s|$)', '', desc)
     
     # Remove extra whitespace
     desc = ' '.join(desc.split())
     
-    # Remove trailing punctuation and whitespace
+    # Remove trailing punctuation and whitespace, but preserve important punctuation within descriptions
     desc = desc.strip(' .-_')
     
     return desc
