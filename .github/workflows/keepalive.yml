@@ -1,0 +1,22 @@
+name: Keep Alive
+on:
+  schedule:
+    - cron: '0 0 1 * *'  # Monthly (1st day of every month at midnight)
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Update timestamp
+        run: |
+          mkdir -p .github
+          echo "Last updated: $(date)" > .github/keepalive
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .github/keepalive
+          git commit -m "Keep workflow alive" || exit 0
+          git push
