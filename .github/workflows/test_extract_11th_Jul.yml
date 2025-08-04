@@ -33,7 +33,7 @@ jobs:
           os.makedirs(base_path, exist_ok=True)
           
           # Date for July 11th, 2025
-          date_obj = datetime.strptime("2025-07-11", "%Y-%m-%d")
+          date_obj = datetime.strptime("2025-07-19", "%Y-%m-%d")
           
           # Construct URL and filename
           day = date_obj.strftime("%d")
@@ -134,3 +134,4 @@ jobs:
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
