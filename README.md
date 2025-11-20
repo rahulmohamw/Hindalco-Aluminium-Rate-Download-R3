@@ -1,2 +1,2 @@
 # Hindalco-Aluminium-Rate-Download-R1 
-Update - 27.08.25
+Update - 20.11.25
