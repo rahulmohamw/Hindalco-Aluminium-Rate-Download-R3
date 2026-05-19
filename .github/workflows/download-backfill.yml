@@ -1,27 +1,36 @@
-import os
-import datetime
-from downloader import download_for_date  # use your existing function
+name: Hindalco Backup Download (Backfill Safe)
 
-# ✅ CONFIG (safe window — no inconsistency)
-BACKFILL_DAYS = 3   # check last 3 days only
+on:
+  schedule:
+    - cron: '45 10 * * *'   # 10:45 UTC (after 10:30 run)
+    - cron: '15 16 * * *'   # 16:15 UTC (after 16:00 run)
 
-today = datetime.date.today()
+permissions:
+  contents: write
 
-for i in range(BACKFILL_DAYS):
-    check_date = today - datetime.timedelta(days=i)
+jobs:
+  download:
+    runs-on: ubuntu-latest
 
-    # ✅ define expected filename logic (same as your main script)
-    filename = f"Downloads/{check_date.strftime('%Y/%b')}/primary-ready-reckoner-{check_date.strftime('%d-%m-%Y')}.pdf"
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-    # ✅ Only download if missing
-    if not os.path.exists(filename):
-        print(f"[MISS] Trying backfill for {check_date}")
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
-        success = download_for_date(check_date)
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
-        if success:
-            print(f"[SUCCESS] Downloaded {check_date}")
-        else:
-            print(f"[SKIP] Not available yet: {check_date}")
-    else:
-        print(f"[OK] Already exists: {check_date}")
+      - name: Run backup script
+        run: python run_backup.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add .
+          git diff --cached --quiet || git commit -m "Backup run: backfill update"
+          git push
