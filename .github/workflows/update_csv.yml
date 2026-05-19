@@ -4,7 +4,7 @@ on:
   workflow_dispatch:  # Manual trigger
   schedule:
       - cron: '15 11 * * *'  # Run at 4:30 PM IST daily
-      - cron: '15 16 * * *'   # Runs every day at 9:30 PM IST (16:00 UTC)
+      - cron: '25 16 * * *'   # Runs every day at 9:55 PM IST
 
 permissions:
   contents: write
