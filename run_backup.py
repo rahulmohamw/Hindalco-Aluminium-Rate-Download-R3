@@ -1,10 +1,11 @@
 import os
 import datetime
-from downloader import download_for_date   # your existing function
+import subprocess
 
 BACKFILL_DAYS = 3
-
 today = datetime.date.today()
+
+print(f"[BACKFILL ACTIVE] Checking last {BACKFILL_DAYS} days")
 
 for i in range(BACKFILL_DAYS):
     check_date = today - datetime.timedelta(days=i)
@@ -12,17 +13,14 @@ for i in range(BACKFILL_DAYS):
     filename = f"Downloads/{check_date.strftime('%Y/%b')}/primary-ready-reckoner-{check_date.strftime('%d-%m-%Y')}.pdf"
 
     if not os.path.exists(filename):
-        print(f"[MISS] Trying backfill for {check_date}")
+        print(f"[MISS] {check_date} → running downloader")
 
-        try:
-            success = download_for_date(check_date)
-        except Exception as e:
-            print(f"[ERROR] {check_date}: {e}")
-            success = False
+        result = subprocess.run(["python", "downloader.py"])
 
-        if success:
-            print(f"[SUCCESS] Downloaded {check_date}")
+        if result.returncode == 0:
+            print(f"[DONE] downloader executed")
         else:
-            print(f"[SKIP] Not available: {check_date}")
+            print(f"[ERROR] downloader failed")
+
     else:
         print(f"[OK] Already exists: {check_date}")
