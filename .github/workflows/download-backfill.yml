@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: '45 10 * * *'   # 10:45 UTC (after 10:30 run)
     - cron: '15 16 * * *'   # 16:15 UTC (after 16:00 run)
+      workflow_dispatch:
 
 permissions:
   contents: write
