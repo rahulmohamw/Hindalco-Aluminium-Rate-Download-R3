@@ -162,3 +162,24 @@
 2026-05-23 17:18:18 - INFO - File already exists: Downloads/2026/May/Hindalco_Circular_23_May_26.pdf
 2026-05-23 17:18:18 - INFO - Download process completed successfully
 2026-05-23 17:18:18 - INFO - Hindalco PDF Downloader finished
+2026-05-24 11:51:46 - INFO - Starting Hindalco PDF Downloader
+2026-05-24 11:51:46 - INFO - Checking for PDF for date: 2026-05-24
+2026-05-24 11:51:46 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-24-may-2026.pdf (Attempt 1/3)
+2026-05-24 11:51:48 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-05-24 11:51:48 - INFO - No valid PDF available for 2026-05-24
+2026-05-24 11:51:48 - INFO - No file downloaded (file may not be available or is invalid)
+2026-05-24 11:51:48 - INFO - Hindalco PDF Downloader finished
+2026-05-24 11:51:48 - INFO - Starting Hindalco PDF Downloader
+2026-05-24 11:51:48 - INFO - Checking for PDF for date: 2026-05-24
+2026-05-24 11:51:48 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-24-may-2026.pdf (Attempt 1/3)
+2026-05-24 11:51:49 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-05-24 11:51:49 - INFO - No valid PDF available for 2026-05-24
+2026-05-24 11:51:49 - INFO - No file downloaded (file may not be available or is invalid)
+2026-05-24 11:51:49 - INFO - Hindalco PDF Downloader finished
+2026-05-24 11:51:49 - INFO - Starting Hindalco PDF Downloader
+2026-05-24 11:51:49 - INFO - Checking for PDF for date: 2026-05-24
+2026-05-24 11:51:49 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-24-may-2026.pdf (Attempt 1/3)
+2026-05-24 11:51:50 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-05-24 11:51:50 - INFO - No valid PDF available for 2026-05-24
+2026-05-24 11:51:50 - INFO - No file downloaded (file may not be available or is invalid)
+2026-05-24 11:51:50 - INFO - Hindalco PDF Downloader finished
