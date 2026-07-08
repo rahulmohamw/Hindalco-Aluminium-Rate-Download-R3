@@ -1830,3 +1830,24 @@
 2026-07-07 18:21:00 - INFO - File already exists: Downloads/2026/Jul/Hindalco_Circular_07_Jul_26.pdf
 2026-07-07 18:21:00 - INFO - Download process completed successfully
 2026-07-07 18:21:00 - INFO - Hindalco PDF Downloader finished
+2026-07-08 12:06:58 - INFO - Starting Hindalco PDF Downloader
+2026-07-08 12:06:58 - INFO - Checking for PDF for date: 2026-07-08
+2026-07-08 12:06:58 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-08-july-2026.pdf (Attempt 1/3)
+2026-07-08 12:06:59 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-07-08 12:06:59 - INFO - No valid PDF available for 2026-07-08
+2026-07-08 12:06:59 - INFO - No file downloaded (file may not be available or is invalid)
+2026-07-08 12:06:59 - INFO - Hindalco PDF Downloader finished
+2026-07-08 12:06:59 - INFO - Starting Hindalco PDF Downloader
+2026-07-08 12:06:59 - INFO - Checking for PDF for date: 2026-07-08
+2026-07-08 12:06:59 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-08-july-2026.pdf (Attempt 1/3)
+2026-07-08 12:07:00 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-07-08 12:07:00 - INFO - No valid PDF available for 2026-07-08
+2026-07-08 12:07:00 - INFO - No file downloaded (file may not be available or is invalid)
+2026-07-08 12:07:00 - INFO - Hindalco PDF Downloader finished
+2026-07-08 12:07:00 - INFO - Starting Hindalco PDF Downloader
+2026-07-08 12:07:00 - INFO - Checking for PDF for date: 2026-07-08
+2026-07-08 12:07:00 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-08-july-2026.pdf (Attempt 1/3)
+2026-07-08 12:07:01 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-07-08 12:07:01 - INFO - No valid PDF available for 2026-07-08
+2026-07-08 12:07:01 - INFO - No file downloaded (file may not be available or is invalid)
+2026-07-08 12:07:01 - INFO - Hindalco PDF Downloader finished
