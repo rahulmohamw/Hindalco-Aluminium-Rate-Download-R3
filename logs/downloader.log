@@ -1851,3 +1851,24 @@
 2026-07-08 12:07:01 - INFO - No valid PDF available for 2026-07-08
 2026-07-08 12:07:01 - INFO - No file downloaded (file may not be available or is invalid)
 2026-07-08 12:07:01 - INFO - Hindalco PDF Downloader finished
+2026-07-08 17:52:14 - INFO - Starting Hindalco PDF Downloader
+2026-07-08 17:52:14 - INFO - Checking for PDF for date: 2026-07-08
+2026-07-08 17:52:14 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-08-july-2026.pdf (Attempt 1/3)
+2026-07-08 17:52:15 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-07-08 17:52:15 - INFO - No valid PDF available for 2026-07-08
+2026-07-08 17:52:15 - INFO - No file downloaded (file may not be available or is invalid)
+2026-07-08 17:52:15 - INFO - Hindalco PDF Downloader finished
+2026-07-08 17:52:15 - INFO - Starting Hindalco PDF Downloader
+2026-07-08 17:52:15 - INFO - Checking for PDF for date: 2026-07-08
+2026-07-08 17:52:15 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-08-july-2026.pdf (Attempt 1/3)
+2026-07-08 17:52:16 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-07-08 17:52:16 - INFO - No valid PDF available for 2026-07-08
+2026-07-08 17:52:16 - INFO - No file downloaded (file may not be available or is invalid)
+2026-07-08 17:52:16 - INFO - Hindalco PDF Downloader finished
+2026-07-08 17:52:16 - INFO - Starting Hindalco PDF Downloader
+2026-07-08 17:52:16 - INFO - Checking for PDF for date: 2026-07-08
+2026-07-08 17:52:16 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-08-july-2026.pdf (Attempt 1/3)
+2026-07-08 17:52:17 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-07-08 17:52:17 - INFO - No valid PDF available for 2026-07-08
+2026-07-08 17:52:17 - INFO - No file downloaded (file may not be available or is invalid)
+2026-07-08 17:52:17 - INFO - Hindalco PDF Downloader finished
