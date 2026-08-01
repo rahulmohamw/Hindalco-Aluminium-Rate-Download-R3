@@ -2706,3 +2706,24 @@
 2026-07-31 17:53:10 - INFO - File already exists: Downloads/2026/Jul/Hindalco_Circular_31_Jul_26.pdf
 2026-07-31 17:53:10 - INFO - Download process completed successfully
 2026-07-31 17:53:10 - INFO - Hindalco PDF Downloader finished
+2026-08-01 11:46:54 - INFO - Starting Hindalco PDF Downloader
+2026-08-01 11:46:54 - INFO - Checking for PDF for date: 2026-08-01
+2026-08-01 11:46:54 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-01-august-2026.pdf (Attempt 1/3)
+2026-08-01 11:46:55 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-08-01 11:46:55 - INFO - No valid PDF available for 2026-08-01
+2026-08-01 11:46:55 - INFO - No file downloaded (file may not be available or is invalid)
+2026-08-01 11:46:55 - INFO - Hindalco PDF Downloader finished
+2026-08-01 11:46:55 - INFO - Starting Hindalco PDF Downloader
+2026-08-01 11:46:55 - INFO - Checking for PDF for date: 2026-08-01
+2026-08-01 11:46:55 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-01-august-2026.pdf (Attempt 1/3)
+2026-08-01 11:46:56 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-08-01 11:46:56 - INFO - No valid PDF available for 2026-08-01
+2026-08-01 11:46:56 - INFO - No file downloaded (file may not be available or is invalid)
+2026-08-01 11:46:56 - INFO - Hindalco PDF Downloader finished
+2026-08-01 11:46:56 - INFO - Starting Hindalco PDF Downloader
+2026-08-01 11:46:56 - INFO - Checking for PDF for date: 2026-08-01
+2026-08-01 11:46:56 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-01-august-2026.pdf (Attempt 1/3)
+2026-08-01 11:46:57 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-08-01 11:46:57 - INFO - No valid PDF available for 2026-08-01
+2026-08-01 11:46:57 - INFO - No file downloaded (file may not be available or is invalid)
+2026-08-01 11:46:57 - INFO - Hindalco PDF Downloader finished
