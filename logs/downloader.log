@@ -3531,3 +3531,24 @@
 2026-08-24 16:55:55 - INFO - No valid PDF available for 2026-08-24
 2026-08-24 16:55:55 - INFO - No file downloaded (file may not be available or is invalid)
 2026-08-24 16:55:55 - INFO - Hindalco PDF Downloader finished
+2026-08-25 11:02:39 - INFO - Starting Hindalco PDF Downloader
+2026-08-25 11:02:39 - INFO - Checking for PDF for date: 2026-08-25
+2026-08-25 11:02:39 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-25-august-2026.pdf (Attempt 1/3)
+2026-08-25 11:02:40 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-08-25 11:02:40 - INFO - No valid PDF available for 2026-08-25
+2026-08-25 11:02:40 - INFO - No file downloaded (file may not be available or is invalid)
+2026-08-25 11:02:40 - INFO - Hindalco PDF Downloader finished
+2026-08-25 11:02:40 - INFO - Starting Hindalco PDF Downloader
+2026-08-25 11:02:40 - INFO - Checking for PDF for date: 2026-08-25
+2026-08-25 11:02:40 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-25-august-2026.pdf (Attempt 1/3)
+2026-08-25 11:02:41 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-08-25 11:02:41 - INFO - No valid PDF available for 2026-08-25
+2026-08-25 11:02:41 - INFO - No file downloaded (file may not be available or is invalid)
+2026-08-25 11:02:41 - INFO - Hindalco PDF Downloader finished
+2026-08-25 11:02:42 - INFO - Starting Hindalco PDF Downloader
+2026-08-25 11:02:42 - INFO - Checking for PDF for date: 2026-08-25
+2026-08-25 11:02:42 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-25-august-2026.pdf (Attempt 1/3)
+2026-08-25 11:02:43 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-08-25 11:02:43 - INFO - No valid PDF available for 2026-08-25
+2026-08-25 11:02:43 - INFO - No file downloaded (file may not be available or is invalid)
+2026-08-25 11:02:43 - INFO - Hindalco PDF Downloader finished
