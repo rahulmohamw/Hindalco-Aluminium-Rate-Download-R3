@@ -3945,3 +3945,24 @@
 2026-09-04 18:59:25 - INFO - File already exists: Downloads/2026/Sep/Hindalco_Circular_04_Sep_26.pdf
 2026-09-04 18:59:25 - INFO - Download process completed successfully
 2026-09-04 18:59:25 - INFO - Hindalco PDF Downloader finished
+2026-09-05 13:31:57 - INFO - Starting Hindalco PDF Downloader
+2026-09-05 13:31:57 - INFO - Checking for PDF for date: 2026-09-05
+2026-09-05 13:31:57 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-05-september-2026.pdf (Attempt 1/3)
+2026-09-05 13:31:58 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-09-05 13:31:58 - INFO - No valid PDF available for 2026-09-05
+2026-09-05 13:31:58 - INFO - No file downloaded (file may not be available or is invalid)
+2026-09-05 13:31:58 - INFO - Hindalco PDF Downloader finished
+2026-09-05 13:31:58 - INFO - Starting Hindalco PDF Downloader
+2026-09-05 13:31:58 - INFO - Checking for PDF for date: 2026-09-05
+2026-09-05 13:31:58 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-05-september-2026.pdf (Attempt 1/3)
+2026-09-05 13:32:00 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-09-05 13:32:00 - INFO - No valid PDF available for 2026-09-05
+2026-09-05 13:32:00 - INFO - No file downloaded (file may not be available or is invalid)
+2026-09-05 13:32:00 - INFO - Hindalco PDF Downloader finished
+2026-09-05 13:32:00 - INFO - Starting Hindalco PDF Downloader
+2026-09-05 13:32:00 - INFO - Checking for PDF for date: 2026-09-05
+2026-09-05 13:32:00 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-05-september-2026.pdf (Attempt 1/3)
+2026-09-05 13:32:01 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-09-05 13:32:01 - INFO - No valid PDF available for 2026-09-05
+2026-09-05 13:32:01 - INFO - No file downloaded (file may not be available or is invalid)
+2026-09-05 13:32:01 - INFO - Hindalco PDF Downloader finished
