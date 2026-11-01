@@ -6141,3 +6141,24 @@
 2026-11-01 16:54:32 - INFO - No valid PDF available for 2026-11-01
 2026-11-01 16:54:32 - INFO - No file downloaded (file may not be available or is invalid)
 2026-11-01 16:54:32 - INFO - Hindalco PDF Downloader finished
+2026-11-01 20:30:47 - INFO - Starting Hindalco PDF Downloader
+2026-11-01 20:30:47 - INFO - Checking for PDF for date: 2026-11-01
+2026-11-01 20:30:47 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-01-november-2026.pdf (Attempt 1/3)
+2026-11-01 20:30:48 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-11-01 20:30:48 - INFO - No valid PDF available for 2026-11-01
+2026-11-01 20:30:48 - INFO - No file downloaded (file may not be available or is invalid)
+2026-11-01 20:30:48 - INFO - Hindalco PDF Downloader finished
+2026-11-01 20:30:48 - INFO - Starting Hindalco PDF Downloader
+2026-11-01 20:30:48 - INFO - Checking for PDF for date: 2026-11-01
+2026-11-01 20:30:48 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-01-november-2026.pdf (Attempt 1/3)
+2026-11-01 20:30:49 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-11-01 20:30:49 - INFO - No valid PDF available for 2026-11-01
+2026-11-01 20:30:49 - INFO - No file downloaded (file may not be available or is invalid)
+2026-11-01 20:30:49 - INFO - Hindalco PDF Downloader finished
+2026-11-01 20:30:49 - INFO - Starting Hindalco PDF Downloader
+2026-11-01 20:30:49 - INFO - Checking for PDF for date: 2026-11-01
+2026-11-01 20:30:49 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-01-november-2026.pdf (Attempt 1/3)
+2026-11-01 20:30:50 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-11-01 20:30:50 - INFO - No valid PDF available for 2026-11-01
+2026-11-01 20:30:50 - INFO - No file downloaded (file may not be available or is invalid)
+2026-11-01 20:30:50 - INFO - Hindalco PDF Downloader finished
