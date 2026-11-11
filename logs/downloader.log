@@ -6528,3 +6528,24 @@
 2026-11-10 21:48:53 - INFO - File already exists: Downloads/2026/Nov/Hindalco_Circular_10_Nov_26.pdf
 2026-11-10 21:48:53 - INFO - Download process completed successfully
 2026-11-10 21:48:53 - INFO - Hindalco PDF Downloader finished
+2026-11-11 18:01:34 - INFO - Starting Hindalco PDF Downloader
+2026-11-11 18:01:34 - INFO - Checking for PDF for date: 2026-11-11
+2026-11-11 18:01:34 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-11-november-2026.pdf (Attempt 1/3)
+2026-11-11 18:01:35 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-11-11 18:01:35 - INFO - No valid PDF available for 2026-11-11
+2026-11-11 18:01:35 - INFO - No file downloaded (file may not be available or is invalid)
+2026-11-11 18:01:35 - INFO - Hindalco PDF Downloader finished
+2026-11-11 18:01:35 - INFO - Starting Hindalco PDF Downloader
+2026-11-11 18:01:35 - INFO - Checking for PDF for date: 2026-11-11
+2026-11-11 18:01:35 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-11-november-2026.pdf (Attempt 1/3)
+2026-11-11 18:01:36 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-11-11 18:01:36 - INFO - No valid PDF available for 2026-11-11
+2026-11-11 18:01:36 - INFO - No file downloaded (file may not be available or is invalid)
+2026-11-11 18:01:36 - INFO - Hindalco PDF Downloader finished
+2026-11-11 18:01:36 - INFO - Starting Hindalco PDF Downloader
+2026-11-11 18:01:36 - INFO - Checking for PDF for date: 2026-11-11
+2026-11-11 18:01:36 - INFO - Attempting to download from: https://www.hindalco.com/Upload/PDF/primary-ready-reckoner-11-november-2026.pdf (Attempt 1/3)
+2026-11-11 18:01:37 - WARNING - Invalid content type: text/html; charset=utf-8 — not saving file.
+2026-11-11 18:01:37 - INFO - No valid PDF available for 2026-11-11
+2026-11-11 18:01:37 - INFO - No file downloaded (file may not be available or is invalid)
+2026-11-11 18:01:37 - INFO - Hindalco PDF Downloader finished
